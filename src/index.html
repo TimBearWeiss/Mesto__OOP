@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Mesto</title>
+    <!-- <link rel="stylesheet" href="./pages/index.css" /> -->
+  </head>
+  <body class="page">
+    <header class="header">
+      <img
+        class="header__logo"
+        src="<%=require('./images/Vector.svg')%>"
+        alt="Лого"
+      />
+    </header>
+
+    <main>
+      <section class="profile">
+        <div class="profile__avatar-box">
+          <img
+            class="profile__avatar"
+            src="<%=require('./images/image.png')%>"
+            alt="Аватар"
+          />
+          <button class="profile__avatar-button" type="button"></button>
+        </div>
+
+        <div class="profile__info">
+          <h1 class="profile__name">Заполните</h1>
+
+          <button class="profile__edit-button"></button>
+          <p class="profile__profession">заполните</p>
+        </div>
+        <button class="profile__add-button"></button>
+      </section>
+
+      <section class="elements"></section>
+    </main>
+
+    <footer class="footer">
+      <p class="footer__autor">© 2020 Mesto Russia</p>
+    </footer>
+
+    <div class="popup" id="popupAvatar">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button"></button>
+        <form class="popup__form" novalidate>
+          <h2 class="popup__title">Обновить аватар</h2>
+          <label class="popup__field">
+            <input
+              class="popup__input"
+              type="url"
+              name="link"
+              value=""
+              id="avatarId"
+              placeholder="Ссылка на картинку"
+              required
+            />
+            <span class="popup__input-error avatarId-error"></span>
+          </label>
+          <button class="popup__save" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup" id="popupProfile">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button"></button>
+        <form class="popup__form" novalidate>
+          <h2 class="popup__title">Редактировать профиль</h2>
+          <label class="popup__field">
+            <input
+              class="popup__input"
+              type="text"
+              name="firstname"
+              value=""
+              id="nameId"
+              required
+              minlength="2"
+              maxlength="40"
+              pattern="^[A-Za-zА-Яа-яЁё\-\s]+$"
+              data-error-message="Разрешены
+            только латинские, кириллические буквы, знаки дефиса и пробелы"
+            />
+            <span class="popup__input-error nameId-error"></span>
+          </label>
+          <label class="popup__field">
+            <input
+              class="popup__input"
+              type="text"
+              name="profession"
+              value=""
+              id="professionId"
+              required
+              minlength="2"
+              maxlength="200"
+              pattern="^[A-Za-zА-Яа-яЁё\-\s]+$"
+              data-error-message="Разрешены
+            только латинские, кириллические буквы, знаки дефиса и пробелы"
+            />
+            <span class="popup__input-error professionId-error"></span>
+          </label>
+          <button class="popup__save" type="submit">Сохранить</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup" id="popupAddCard">
+      <div class="popup__container">
+        <button class="popup__close-button" type="button"></button>
+        <form class="popup__form">
+          <h2 class="popup__title">Новое место</h2>
+          <label class="popup__field">
+            <input
+              class="popup__input"
+              type="text"
+              name="name"
+              value=""
+              placeholder="Название"
+              id="NewPlace"
+              required
+              minlength="2"
+              maxlength="30"
+              pattern="^[A-Za-zА-Яа-яЁё\-\s]+$"
+              data-error-message="Разрешены
+            только латинские, кириллические буквы, знаки дефиса и пробелы"
+            />
+            <span class="popup__input-error NewPlace-error"></span>
+          </label>
+          <label class="popup__field">
+            <input
+              class="popup__input"
+              type="url"
+              name="link"
+              value=""
+              placeholder="Ссылка на картинку"
+              id="linkPlace"
+              required
+            />
+            <span class="popup__input-error linkPlace-error"></span>
+          </label>
+          <button class="popup__save" type="submit">Создать</button>
+        </form>
+      </div>
+    </div>
+
+    <div class="popup popup__image">
+      <figure class="popup__figure">
+        <button class="popup__close-button" type="button"></button>
+        <img class="popup__picture" src="#" alt="полномасштабная картинка" />
+        <figcaption class="popup__caption"></figcaption>
+      </figure>
+    </div>
+
+    <template id="cardTemplate">
+      <div class="element">
+        <button class="element__delete-btn" type="button"></button>
+        <img class="element__image" src="#" alt="фото карточки" />
+        <div class="element__panel">
+          <h2 class="element__inscription"></h2>
+          <div>
+            <button class="elements__like"></button>
+            <h2 class="element__like-number">0</h2>
+          </div>
+        </div>
+      </div>
+    </template>
+
+    <!-- <script type="module" src="components/index.js"></script> -->
+  </body>
+</html>

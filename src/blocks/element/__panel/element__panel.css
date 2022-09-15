@@ -1,0 +1,7 @@
+.element__panel {
+  display: flex;
+  justify-content: space-between;
+  max-width: 246px;
+  margin-left: auto;
+  margin-right: auto;
+}
