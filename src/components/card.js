@@ -6,17 +6,21 @@ import {} from './api.js'
 import {userId, api} from './index.js'
 
 
+
+
+
 export class Card {
-  constructor(name, link, likes, id, cardId) {
-    this.name = name;
-    this.link = link;
-    this.likes = likes;
-    this.id = id;
-    this.cardId = cardId;
+  constructor(element, selector) {
+    this.name = element.name;
+    this.link = element.link;
+    this.likes = element.likes;
+    this.id = element.owner._id;
+    this.cardId = element.cardId;
+    this.selector = selector;
   }
   _getElement() {
     const cardElement = document
-      .querySelector('#cardTemplate')
+      .querySelector(this.selector)
       .content
       .querySelector('.element')
       .cloneNode(true);
@@ -52,11 +56,7 @@ export class Card {
     return this._element;
   }
 
-  _setEventListeners() {
-    this._cardImage.addEventListener('click', function () {
-      getFullSizeCard(this._cardImage);
-    });
-  }
+  
 
   _getFullSizeCard(element) {
     picturePopup.src = element.src;
@@ -64,7 +64,14 @@ export class Card {
     caption.textContent = element.alt;
   
     openPopup(popupImage);
-  };
+  }
+
+
+  _setEventListeners() {
+    this._cardImage.addEventListener('click', () =>  {
+      this._getFullSizeCard(this._cardImage);
+    });
+  }
 
 
 }

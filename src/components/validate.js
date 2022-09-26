@@ -1,3 +1,32 @@
+class FormValidator {
+  constructor(data) {
+    this.formSelector = data.formSelector;
+    this.inputSelector = data.inputSelector;
+    this.submitButtonSelector = data.submitButtonSelector;
+    this.inactiveButtonClass = data.inactiveButtonClass;
+    this.errorClass = data.errorClass;
+  }
+  
+
+}
+
+
+
+
+
+
+
+enableValidation({
+  formSelector: '.popup__form',
+  inputSelector: '.popup__input',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass: 'popup__save_inactive',
+  inputErrorClass: 'popup__input-redframe',
+  errorClass: 'popup__input-error_visible'
+}); 
+
+
+
 
 const enableValidation = (enableValidation) => {
 

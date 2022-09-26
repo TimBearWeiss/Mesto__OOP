@@ -68,7 +68,7 @@ Promise.all([api.getUserInfo(), api.getCardFromServer()])
 
       // и тут отрисовка карточек
       cards.forEach(function(element) {
-        const newCard = new Card(element.name, element.link, element.likes, element.owner._id, element._id);
+        const newCard = new Card(element, '#cardTemplate');
         const cardElement = newCard._generate();
         cardContainer.append(cardElement);
        });
