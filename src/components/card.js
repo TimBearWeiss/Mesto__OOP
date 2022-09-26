@@ -2,8 +2,8 @@ import {cardContainer, cardTemplate, popupAddCard, cardForm, buttonSaveAddCard, 
 caption, popupImage} from './constants.js'
 import {renderLoading} from './modal.js'
 import {closePopup, openPopup} from './utils'
-import {postUserCard, deleteCardFromServer, deleteLike, addLike,} from './api.js'
-import {userId} from './index.js'
+import {} from './api.js'
+import {userId, api} from './index.js'
 
 
 
@@ -45,7 +45,7 @@ import {userId} from './index.js'
     likeElement.addEventListener('click', evt => {
 
       if (likeElement.classList.contains('element__like_position_activ')) {
-        deleteLike(cardId)
+        api.deleteLike(cardId)
         .then ((res) =>{
           evt.target.classList.toggle('element__like_position_activ');
           likeNumber.textContent = res.likes.length;
@@ -55,7 +55,7 @@ import {userId} from './index.js'
         });
       }
       else {
-        addLike(cardId)
+        api.addLike(cardId)
         .then ((res) =>{
           likeNumber.textContent = res.likes.length;
           evt.target.classList.toggle('element__like_position_activ');

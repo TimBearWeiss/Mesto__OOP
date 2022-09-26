@@ -29,7 +29,18 @@ import {enableValidation} from './validate.js'
 
 //редактирование информации о себе
 import {handleProfileFormSubmit, handleAvatarFormSubmit} from './modal.js' 
-import {getCardFromServer, getUserInfo} from './api.js'
+import {Api} from './api.js'
+
+
+
+
+export const api = new Api({
+  baseUrl: 'https://nomoreparties.co/v1/plus-cohort-14',
+  headers: {
+    authorization: '4f0ff6e8-a2e0-495e-814d-038253b8623a',
+    'Content-Type': 'application/json'
+  }
+}); 
 
 
 enableValidation({
@@ -44,15 +55,17 @@ enableValidation({
 
 
 
-Promise.all([getUserInfo(), getCardFromServer()])
+Promise.all([api.getUserInfo(), api.getCardFromServer()])
 // тут деструктурируете ответ от сервера, чтобы было понятнее, что пришло
   .then(([userData, cards]) => {
+
       // тут установка данных пользователя
       profTitle.textContent = userData.name 
       profSubtitle.textContent = userData.about
       profAvatar.src = userData.avatar
       userId = userData._id
       console.log(userData);
+
       // и тут отрисовка карточек
       cards.forEach(function(element) {
         const newCard = addCard(element.name, element.link, element.likes, element.owner._id, element._id);

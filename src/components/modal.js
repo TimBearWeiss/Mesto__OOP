@@ -2,7 +2,7 @@ import {jobInput, profTitle, profSubtitle, nameInput, popupProfile, profAvatar,
 avatarInput, buttonSaveAvatar, buttonSaveProfile} from './constants.js'
 
 import {closePopup, renderLoading} from './utils'
-import {uploadUserInfoInServer, uploadAvatar} from './api.js'
+import {} from './api.js'
 
 
    
