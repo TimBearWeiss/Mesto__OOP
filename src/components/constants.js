@@ -60,7 +60,7 @@ export const profAvatar = document.querySelector('.profile__avatar');
 
 export const cardContainer = document.querySelector('.elements');
 
-export const cardTemplate = document.querySelector('#cardTemplate').content;
+// export const cardTemplate = document.querySelector('#cardTemplate').content;
 
 
 

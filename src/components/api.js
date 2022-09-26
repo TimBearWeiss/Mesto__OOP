@@ -1,47 +1,34 @@
 import {checkResponse} from './utils.js'
 
-
 // Область работы с ООП 
-
 export class Api {
   constructor(options) {
     this.baseUrl = options.baseUrl
     this.headers = options.headers
   }
 
-  getInitialCards() {
-        return fetch().then()
-    // ...
-  }
-
-
   // забираем с сервера данные имени и профессии
   getUserInfo () {
-    
+
   return fetch(this.baseUrl +'/users/me', {
   method:'GET',
   headers: this.headers
   })
   .then(checkResponse);
-  }
+}
+// добавляем на сервер данные имени и профессии 
 
-
-  // добавляем на сервер данные имени и профессии 
-
-  uploadUserInfoInServer(name, about) {
+uploadUserInfoInServer(name, about) {
   return fetch(this.baseUrl +'/users/me', {
       method: 'PATCH',
       headers: this.headers,
       body: JSON.stringify({
       name: name,
       about: about
-})
-      
+})  
 })
       .then(checkResponse)
-
 }
-
 
 // картинки с сервера 
 
@@ -52,7 +39,6 @@ getCardFromServer() {
     })
     .then(checkResponse)      
 }
-
 
 postUserCard(name, url) {
   return fetch(this.baseUrl +'/cards', {
@@ -66,9 +52,7 @@ postUserCard(name, url) {
   .then(checkResponse)
 }
 
-
-// удаление карточки 
-
+// удаление карточки
  deleteCardFromServer(cardId) {
   return fetch(this.baseUrl +`/cards/${cardId}`, {
     method:'DELETE',
@@ -76,8 +60,6 @@ postUserCard(name, url) {
   })
   .then(checkResponse)
 };
-
-
 
 // лайк карточки 
  addLike(cardId) {
@@ -88,7 +70,6 @@ postUserCard(name, url) {
   .then(checkResponse)
 }
 
-
 // удаление лайка карточки 
 
  deleteLike(cardId) {
@@ -97,7 +78,6 @@ postUserCard(name, url) {
     headers: this.headers
   })
   .then(checkResponse)
-
 }
 
 // обновить аватар 
@@ -112,38 +92,10 @@ postUserCard(name, url) {
 })
   })
   .then(checkResponse)
-
 }
-
-
-
-  
 }
-
-
-
-
-
-
-
 
 // Конец 
-
-
-
-
-
-
-
-
-// const config = {
-//   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-14',
-//   headers: {
-//     authorization: '4f0ff6e8-a2e0-495e-814d-038253b8623a',
-//     'Content-Type': 'application/json',
-//   },
-// };
-
 
      
 
