@@ -8,12 +8,12 @@ import {} from './api.js'
    
 
 
-  function closePopupEsc(evt) {
-    if (evt.key === 'Escape') {
-      const openedPopup = document.querySelector('.popup_opened')
-      closePopup(openedPopup);
-    }
-  }
+  // function closePopupEsc(evt) {
+  //   if (evt.key === 'Escape') {
+  //     const openedPopup = document.querySelector('.popup_opened')
+  //     closePopup(openedPopup);
+  //   }
+  // }
 
 
  

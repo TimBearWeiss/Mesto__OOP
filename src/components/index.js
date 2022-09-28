@@ -1,6 +1,7 @@
 import '../pages/index.css'; // добавьте импорт главного файла стилей 
 import '../components/api.js';
 import {Section} from './Section.js'
+import {Popup} from './Popup.js'
 import {
   addBtn,
   editBtn,
@@ -104,23 +105,23 @@ Promise.all([api.getUserInfo(), api.getCardFromServer()])
 
 // закрытие попапа при клике на оверлей 
 
-popupAvatar.addEventListener('mousedown', (evt) => {
-  if (evt.target === evt.currentTarget) {
-    closePopup(popupAvatar);
-  };
-});
+// popupAvatar.addEventListener('mousedown', (evt) => {
+//   if (evt.target === evt.currentTarget) {
+//     closePopup(popupAvatar);
+//   };
+// });
 
-popupProfile.addEventListener('mousedown', (evt) => {
-    if (evt.target === evt.currentTarget) {
-      closePopup(popupProfile);
-    };
-});
+// popupProfile.addEventListener('mousedown', (evt) => {
+//     if (evt.target === evt.currentTarget) {
+//       closePopup(popupProfile);
+//     };
+// });
 
-popupAddCard.addEventListener('mousedown', (evt) => {
-  if (evt.target === evt.currentTarget) {
-    closePopup(popupAddCard);
-  };
-});
+// popupAddCard.addEventListener('mousedown', (evt) => {
+//   if (evt.target === evt.currentTarget) {
+//     closePopup(popupAddCard);
+//   };
+// });
 
 popupImage.addEventListener('mousedown', (evt) => {
   if (evt.target === evt.currentTarget) {
@@ -129,11 +130,11 @@ popupImage.addEventListener('mousedown', (evt) => {
 });
 
 
-popups.forEach (popup => {
-  popup.addEventListener('click', evt => {
-   evt.target.classList.contains('popup__close-button') ? closePopup(popup) : false;
-  }); 
-});
+// popups.forEach (popup => {
+//   popup.addEventListener('click', evt => {
+//    evt.target.classList.contains('popup__close-button') ? closePopup(popup) : false;
+//   }); 
+// });
 
 
 // открытие попапов 
