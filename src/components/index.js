@@ -25,7 +25,7 @@ import {
 
 import {addUsersCard, addCard, Card} from './card.js'
 import {openPopup, closePopup} from './utils'
-import {enableValidation} from './validate.js' 
+// import {enableValidation} from './validate.js' 
 
 //редактирование информации о себе
 import {handleProfileFormSubmit, handleAvatarFormSubmit} from './modal.js' 
@@ -43,14 +43,14 @@ export const api = new Api({
 }); 
 
 
-enableValidation({
-  formSelector: '.popup__form',
-  inputSelector: '.popup__input',
-  submitButtonSelector: '.popup__save',
-  inactiveButtonClass: 'popup__save_inactive',
-  inputErrorClass: 'popup__input-redframe',
-  errorClass: 'popup__input-error_visible'
-}); 
+// enableValidation({
+//   formSelector: '.popup__form',
+//   inputSelector: '.popup__input',
+//   submitButtonSelector: '.popup__save',
+//   inactiveButtonClass: 'popup__save_inactive',
+//   inputErrorClass: 'popup__input-redframe',
+//   errorClass: 'popup__input-error_visible'
+// }); 
 
 
 
