@@ -1,6 +1,6 @@
 import '../pages/index.css'; // добавьте импорт главного файла стилей 
 import '../components/api.js';
-
+import {Section} from './Section.js'
 import {
   addBtn,
   editBtn,
@@ -30,6 +30,11 @@ import {openPopup, closePopup} from './utils'
 //редактирование информации о себе
 import {handleProfileFormSubmit, handleAvatarFormSubmit} from './modal.js' 
 import {Api} from './api.js'
+
+
+
+
+
 
 
 
@@ -66,13 +71,31 @@ Promise.all([api.getUserInfo(), api.getCardFromServer()])
       userId = userData._id
       console.log(userData);
 
+
+      const cardList = new Section({
+        data: cards,
+        renderer: (element) => {
+          const newCard = new Card(element, '#cardTemplate');
+          const cardElement = newCard._generate();
+          cardContainer.append(cardElement);
+        }
+      },
+      '.elements'
+      );
+
+
+      cardList.renderItems(cards, userData);
+
+
+      
+
+
       // и тут отрисовка карточек
-      cards.forEach(function(element) {
-        const newCard = new Card(element, '#cardTemplate');
-        const cardElement = newCard._generate();
-        cardContainer.append(cardElement);
-       });
-       console.log(cards);
+      // cards.forEach(function(element) {
+      //   const newCard = new Card(element, '#cardTemplate');
+      //   const cardElement = newCard._generate();
+      //   cardContainer.append(cardElement);
+      //  });
   })
       .catch(err => {
       console.log(err);
