@@ -1,7 +1,6 @@
 import {cardContainer, cardTemplate, popupAddCard, cardForm, buttonSaveAddCard, picturePopup,
 caption, popupImage} from './constants.js'
 import {renderLoading} from './modal.js'
-import {closePopup, openPopup} from './utils'
 import {} from './api.js'
 import {userId, api} from './index.js'
 

@@ -1,53 +1,40 @@
 import '../pages/index.css'; // добавьте импорт главного файла стилей 
 import '../components/api.js';
 import {Section} from './Section.js'
-import {Popup} from './Popup.js'
 import {
   addBtn,
-  editBtn,
-  popups,
+  editBtn,  
   popupProfile,
   popupAddCard,
-  cardForm,
-  popupImage,
   profileName,
   profileProf,
   formProfileEdit,
-  profileForm,
   editAvatar,
   popupAvatar,
-  avatarForm,
   cardContainer, 
+  jobInput,
+  nameInput,
   profTitle, 
   profSubtitle, 
   profAvatar
 } from "./constants.js";
 //  Шесть карточек «из коробки»
 
-import {addUsersCard, addCard, Card} from './card.js'
-import {openPopup, closePopup} from './utils'
+import {Card} from './card.js'
+import {Popup, PopupWithForm, PopupWithImage} from './Popup.js'
 // import {enableValidation} from './validate.js' 
 
 //редактирование информации о себе
 import {handleProfileFormSubmit, handleAvatarFormSubmit} from './modal.js' 
 import {Api} from './api.js'
 
-
-
-
-
-
-
-
-
-export const api = new Api({
+const api = new Api({
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-14',
   headers: {
     authorization: '4f0ff6e8-a2e0-495e-814d-038253b8623a',
     'Content-Type': 'application/json'
   }
 }); 
-
 
 // enableValidation({
 //   formSelector: '.popup__form',
@@ -57,9 +44,6 @@ export const api = new Api({
 //   inputErrorClass: 'popup__input-redframe',
 //   errorClass: 'popup__input-error_visible'
 // }); 
-
-
-
 
 Promise.all([api.getUserInfo(), api.getCardFromServer()])
 // тут деструктурируете ответ от сервера, чтобы было понятнее, что пришло
@@ -86,11 +70,6 @@ Promise.all([api.getUserInfo(), api.getCardFromServer()])
 
 
       cardList.renderItems(cards, userData);
-
-
-      
-
-
       // и тут отрисовка карточек
       // cards.forEach(function(element) {
       //   const newCard = new Card(element, '#cardTemplate');
@@ -123,11 +102,11 @@ Promise.all([api.getUserInfo(), api.getCardFromServer()])
 //   };
 // });
 
-popupImage.addEventListener('mousedown', (evt) => {
-  if (evt.target === evt.currentTarget) {
-    closePopup(popupImage);
-  };
-});
+// popupImage.addEventListener('mousedown', (evt) => {
+//   if (evt.target === evt.currentTarget) {
+//     closePopup(popupImage);
+//   };
+// });
 
 
 // popups.forEach (popup => {
@@ -149,17 +128,37 @@ addBtn.addEventListener('click', function () {
 }); 
 
 editBtn.addEventListener('click', function () {
+  const popup = new PopupWithForm('#popupProfile', () => {
+    // renderLoading(true, buttonSaveProfile);
+    console.log('hello');
+    // отправляем данные серверу 
+    api.uploadUserInfoInServer(nameInput.value, jobInput.value)
+    .then((res) => {
+      profTitle.textContent = nameInput.value;
+      profSubtitle.textContent = jobInput.value; 
+      console.log(res);
+      popup.closePopup();
+    })
+    // .finally (()=>{
+    //   renderLoading(false, buttonSaveProfile);
+    // })
+    .catch((err) => {
+      console.log(err);
+    })
+  });
+
   formProfileEdit.firstname.value = profileName.textContent;
   formProfileEdit.profession.value = profileProf.textContent;
-  openPopup(popupProfile);
+  popup.listeners();
+  popup.openPopup();
 }); 
 
 // Кнопки сохранения форм
-profileForm.addEventListener('submit', handleProfileFormSubmit);
+// profileForm.addEventListener('submit', handleProfileFormSubmit);
 
-avatarForm.addEventListener('submit', handleAvatarFormSubmit);
+// avatarForm.addEventListener('submit', handleAvatarFormSubmit);
 
-cardForm.addEventListener('submit', addUsersCard);
+// cardForm.addEventListener('submit', addUsersCard);
 
 
 export let userId = '';

@@ -1,22 +1,14 @@
 import {jobInput, profTitle, profSubtitle, nameInput, popupProfile, profAvatar, 
 avatarInput, buttonSaveAvatar, buttonSaveProfile} from './constants.js'
 
-import {closePopup, renderLoading} from './utils'
+import {renderLoading} from './utils'
 import {} from './api.js'
-
-
-   
-
-
   // function closePopupEsc(evt) {
   //   if (evt.key === 'Escape') {
   //     const openedPopup = document.querySelector('.popup_opened')
   //     closePopup(openedPopup);
   //   }
   // }
-
-
- 
 
 function handleAvatarFormSubmit(evt){
   evt.preventDefault();
@@ -58,4 +50,4 @@ function handleAvatarFormSubmit(evt){
   };
 
 
-   export {closePopupEsc, handleProfileFormSubmit, handleAvatarFormSubmit, renderLoading};
+   export {handleProfileFormSubmit, handleAvatarFormSubmit, renderLoading};

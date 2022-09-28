@@ -32,7 +32,7 @@ function renderLoading(isLoading, submitButton) {
       };
 
 
-   export {openPopup, closePopup, checkResponse, renderLoading};
+   export {checkResponse, renderLoading};
 
 
 
