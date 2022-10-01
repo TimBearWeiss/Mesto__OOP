@@ -4,7 +4,7 @@ export class Popup {
   }
 
 
-  openPopup = () => {
+  openPopup() {
     this.popup.classList.add('popup_opened');
     document.addEventListener('keydown', (evt) => {
       this._closePopupEsc(evt);
@@ -36,15 +36,18 @@ export class Popup {
 }
 
 export class PopupWithImage extends Popup {
-  constructor(selector){
+  constructor(selector, link, name){
       super(selector);
-      this.picturePopup = document.querySelector('.popup__picture');
+      this._link = link;
+      this._name = name;
+      this._popupImage = document.querySelector('.popup__picture');
+      this._popupDescription = document.querySelector('.popup__caption');
   }
 
-  openPopup(element) {    
-    this.picturePopup.src = element.src;
-    this.picturePopup.alt = element.alt;
-    this.caption.textContent = element.alt;
+  openPopup() {  
+    this._popupImage.src = this._link;
+    this._popupImage.alt = this._name;
+    this._popupDescription.textContent = this._name;
     super.openPopup();
   }
 }

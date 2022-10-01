@@ -1,6 +1,3 @@
-
-import {closePopupEsc} from './modal'
-
 function checkResponse(res) {
     if (res.ok) {
       return res.json();
