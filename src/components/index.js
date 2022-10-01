@@ -25,7 +25,7 @@ import {
 //  Шесть карточек «из коробки»
 
 import {renderLoading} from './utils'
-import {Card} from './card.js'
+import {Card} from './Card.js'
 import {Popup, PopupWithForm, PopupWithImage} from './Popup.js'
 // import {enableValidation} from './validate.js' 
 
@@ -65,7 +65,7 @@ Promise.all([api.getUserInfo(), api.getCardFromServer()])
       const cardList = new Section({
         data: cards,
         renderer: (element) => {
-          const newCard = new Card(element, '#cardTemplate');
+          const newCard = new Card(element, '#cardTemplate', getFullSizeCard, deleteCard);
           const cardElement = newCard._generate();
           cardContainer.append(cardElement);
         }
@@ -165,12 +165,43 @@ editBtn.addEventListener('click', function () {
   popup.openPopup();
 }); 
 
+
+ // function getFullSizeCard(element) {
+  //   picturePopup.src = element.src;
+  //   picturePopup.alt = element.alt;
+  //   caption.textContent = element.alt;
+  
+  //   openPopup(popupImage);
+  // };
+
+
+  export const getFullSizeCard = (card) => {
+    const popupImage = new PopupWithImage('.popup__image');
+    popupImage.openPopup(card);
+    popupImage.listeners();
+  }
+
+
+
+
 // Кнопки сохранения форм
 // profileForm.addEventListener('submit', handleProfileFormSubmit);
 
 // avatarForm.addEventListener('submit', handleAvatarFormSubmit);
 
 // cardForm.addEventListener('submit', addUsersCard);
+
+
+
+ const deleteCard = (cardElement, cardId) => {
+  api.deleteCardFromServer(cardId)
+  .then((res) => {
+    cardElement.remove();
+  })
+  .catch((err) => {
+    console.log(err); 
+  });
+};
 
 
 export let userId = '';
