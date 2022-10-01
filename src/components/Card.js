@@ -27,7 +27,7 @@ export class Card {
       this.getFull(item);
     });
 
-    deleteBtn.addEventListener ('click',  () => {
+    deleteBtn.addEventListener ('click',  function () {
       this.deleteCard(card, idCard);
     })
   }
