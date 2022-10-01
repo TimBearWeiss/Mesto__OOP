@@ -6,6 +6,7 @@ import {
   editBtn, 
   cardForm,
   data,
+  buttonSaveProfile,
   likeInput,
   buttonSaveAddCard,
   popupProfile,
@@ -22,7 +23,9 @@ import {
   nameInput,
   profTitle, 
   profSubtitle, 
-  profAvatar
+  profAvatar,
+  nameSelector,
+  professionSelector
 } from "./constants.js";
 //  Шесть карточек «из коробки»
 
@@ -30,9 +33,14 @@ import {renderLoading} from './utils'
 import {FormValidator} from './Validate.js'
 import {Card} from './Card.js'
 import {PopupWithForm, PopupWithImage} from './Popup.js' 
-
-//редактирование информации о себе
 import {Api} from './api.js'
+import {UserInfo} from './UserInfo.js'
+
+
+const user = new UserInfo({
+  nameSelector,
+  professionSelector
+})
 
 const api = new Api({
   baseUrl: 'https://nomoreparties.co/v1/plus-cohort-14',
@@ -45,13 +53,10 @@ const api = new Api({
 Promise.all([api.getUserInfo(), api.getCardFromServer()])
 // тут деструктурируете ответ от сервера, чтобы было понятнее, что пришло
   .then(([userData, cards]) => {
-
-      // тут установка данных пользователя
-      profTitle.textContent = userData.name 
-      profSubtitle.textContent = userData.about
-      profAvatar.src = userData.avatar
-      userId = userData._id
-      console.log(userData);
+    user.setUserInfo(userData)
+    console.log(userData)
+    profAvatar.src = userData.avatar;
+    userId = userData._id;
 
       const cardList = new Section({
         data: cards,
@@ -127,6 +132,9 @@ addBtn.addEventListener('click', function () {
   popup.listeners();
   popup.openPopup();
 }); 
+
+
+
 
 editBtn.addEventListener('click', function () {
   const popup = new PopupWithForm('#popupProfile', () => {

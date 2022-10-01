@@ -13,6 +13,12 @@ export const data = {
 }
 
 
+
+export const nameSelector = '.profile__name';
+export const professionSelector = '.profile__profession'
+
+
+
 export const popups = document.querySelectorAll('.popup');
 export const popupProfile = document.querySelector('#popupProfile');
 export const popupAddCard = document.querySelector('#popupAddCard');
@@ -68,7 +74,6 @@ export const profAvatar = document.querySelector('.profile__avatar');
 
 export const cardContainer = document.querySelector('.elements');
 
-// export const cardTemplate = document.querySelector('#cardTemplate').content;
 
 
 
