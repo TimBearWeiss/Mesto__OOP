@@ -10,44 +10,44 @@ import {} from './api.js'
   //   }
   // }
 
-function handleAvatarFormSubmit(evt){
-  evt.preventDefault();
-  renderLoading(true, buttonSaveAvatar);
+// function handleAvatarFormSubmit(evt){
+//   evt.preventDefault();
+//   renderLoading(true, buttonSaveAvatar);
   
-  uploadAvatar(avatarInput.value)
-  .then((res) => {
-    profAvatar.src = avatarInput.value;
-    closePopup(popupAvatar);
-  })
+//   uploadAvatar(avatarInput.value)
+//   .then((res) => {
+//     profAvatar.src = avatarInput.value;
+//     closePopup(popupAvatar);
+//   })
 
-  .finally (()=>{
-    renderLoading(false, buttonSaveAvatar);
-  })
+//   .finally (()=>{
+//     renderLoading(false, buttonSaveAvatar);
+//   })
 
-  .catch((err) => {
-    console.log(err); // выводим ошибку в консоль
-  });
-};
+//   .catch((err) => {
+//     console.log(err); // выводим ошибку в консоль
+//   });
+// };
 
 
-  function handleProfileFormSubmit(evt) {
-    evt.preventDefault();
-    renderLoading(true, buttonSaveProfile);
+//   function handleProfileFormSubmit(evt) {
+//     evt.preventDefault();
+//     renderLoading(true, buttonSaveProfile);
   
-    // отправляем данные серверу 
-    uploadUserInfoInServer(nameInput.value, jobInput.value)
-    .then((res) => {
-      profTitle.textContent = nameInput.value;
-      profSubtitle.textContent = jobInput.value; 
-      closePopup(popupProfile);
-    })
-    .finally (()=>{
-      renderLoading(false, buttonSaveProfile);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  };
+//     // отправляем данные серверу 
+//     uploadUserInfoInServer(nameInput.value, jobInput.value)
+//     .then((res) => {
+//       profTitle.textContent = nameInput.value;
+//       profSubtitle.textContent = jobInput.value; 
+//       closePopup(popupProfile);
+//     })
+//     .finally (()=>{
+//       renderLoading(false, buttonSaveProfile);
+//     })
+//     .catch((err) => {
+//       console.log(err);
+//     })
+//   };
 
 
-   export {handleProfileFormSubmit, handleAvatarFormSubmit, renderLoading};
+   export {renderLoading};

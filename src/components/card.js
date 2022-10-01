@@ -61,8 +61,6 @@ export class Card {
     picturePopup.src = element.src;
     picturePopup.alt = element.alt;
     caption.textContent = element.alt;
-  
-    openPopup(popupImage);
   }
 
 
@@ -164,43 +162,43 @@ export class Card {
   };
 
 
-  function addUsersCard(evt) {
-    evt.preventDefault();
-    renderLoading(true, buttonSaveAddCard);
-    const imageLink = cardForm.link.value;
-    const imageName = cardForm.name.value;
+  // function addUsersCard(evt) {
+  //   evt.preventDefault();
+  //   renderLoading(true, buttonSaveAddCard);
+  //   const imageLink = cardForm.link.value;
+  //   const imageName = cardForm.name.value;
 
     
-    postUserCard(imageName, imageLink)
-    .then((res)=>{
+  //   postUserCard(imageName, imageLink)
+  //   .then((res)=>{
       
-      const newCard = addCard(imageName, imageLink, res.likes, res.owner._id, res._id);
-      const popupSave = popupAddCard.querySelector('.popup__save');
+  //     const newCard = addCard(imageName, imageLink, res.likes, res.owner._id, res._id);
+  //     const popupSave = popupAddCard.querySelector('.popup__save');
 
-    cardContainer.prepend(newCard);
+  //   cardContainer.prepend(newCard);
       
-    closePopup(popupAddCard);    
+  //   closePopup(popupAddCard);    
    
-    popupSave.setAttribute('disabled', true);
-    popupSave.classList.add('popup__save_inactive');
+  //   popupSave.setAttribute('disabled', true);
+  //   popupSave.classList.add('popup__save_inactive');
 
-    cardForm.name.value = '';
-    cardForm.link.value = '';  
-    return res;
+  //   cardForm.name.value = '';
+  //   cardForm.link.value = '';  
+  //   return res;
 
-    })
+  //   })
     
-    .catch((err) => {
-      console.log(err);
-    })
+  //   .catch((err) => {
+  //     console.log(err);
+  //   })
 
-    .finally (()=>{
-      renderLoading(false, buttonSaveAddCard);
-    });
+  //   .finally (()=>{
+  //     renderLoading(false, buttonSaveAddCard);
+  //   });
    
-  };
+  // };
 
 
 
 
-export {deleteCard, addUsersCard};
+export {deleteCard};

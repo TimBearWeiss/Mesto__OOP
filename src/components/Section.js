@@ -1,25 +1,25 @@
 export class Section {
-    constructor({ data, renderer }, selector) {
-        this._initialArray = data;
-        this._renderer = renderer; // renderer — это функция
+  constructor({ data, renderer }, selector) {
+      this._initialArray = data;
+      this._renderer = renderer; // renderer — это функция
         
-        this._container = document.querySelector(selector);
-      }
-  
-    _clear () {
-      this._container.innerHTML = ''
+      this._container = document.querySelector(selector);
     }
   
-    addItem (element) {
-      this._container.prepend(element)
-    }
-  
-    renderItems (items, payload) {
-      this._clear()
-      items.reverse().forEach(item => {
-        this._renderer(item, payload)
-      })
-    }
+  _clear () {
+    this._container.innerHTML = '';
   }
+  
+  addItem (element) {
+    this._container.prepend(element);
+  }
+  
+  renderItems (items, payload) {
+    this._clear()
+    items.forEach(item => {
+      this._renderer(item, payload)
+    })
+  }
+}
 
   

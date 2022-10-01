@@ -3,11 +3,15 @@ import '../components/api.js';
 import {Section} from './Section.js'
 import {
   addBtn,
-  editBtn,  
+  editBtn, 
+  cardForm,
+  buttonSaveAddCard,
   popupProfile,
   popupAddCard,
   profileName,
   profileProf,
+  avatarInput,
+  buttonSaveAvatar,
   formProfileEdit,
   editAvatar,
   popupAvatar,
@@ -20,6 +24,7 @@ import {
 } from "./constants.js";
 //  Шесть карточек «из коробки»
 
+import {renderLoading} from './utils'
 import {Card} from './card.js'
 import {Popup, PopupWithForm, PopupWithImage} from './Popup.js'
 // import {enableValidation} from './validate.js' 
@@ -81,50 +86,57 @@ Promise.all([api.getUserInfo(), api.getCardFromServer()])
       console.log(err);
   });
 
-
-// закрытие попапа при клике на оверлей 
-
-// popupAvatar.addEventListener('mousedown', (evt) => {
-//   if (evt.target === evt.currentTarget) {
-//     closePopup(popupAvatar);
-//   };
-// });
-
-// popupProfile.addEventListener('mousedown', (evt) => {
-//     if (evt.target === evt.currentTarget) {
-//       closePopup(popupProfile);
-//     };
-// });
-
-// popupAddCard.addEventListener('mousedown', (evt) => {
-//   if (evt.target === evt.currentTarget) {
-//     closePopup(popupAddCard);
-//   };
-// });
-
-// popupImage.addEventListener('mousedown', (evt) => {
-//   if (evt.target === evt.currentTarget) {
-//     closePopup(popupImage);
-//   };
-// });
-
-
-// popups.forEach (popup => {
-//   popup.addEventListener('click', evt => {
-//    evt.target.classList.contains('popup__close-button') ? closePopup(popup) : false;
-//   }); 
-// });
-
-
-// открытие попапов 
-
 editAvatar.addEventListener('click', function () {
-  openPopup(popupAvatar);
+  const popup = new PopupWithForm('#popupAvatar', () => {
+    renderLoading(true, buttonSaveAvatar);
+  
+    api.uploadAvatar(avatarInput.value)
+    .then((res) => {
+      profAvatar.src = avatarInput.value;
+      popup.closePopup();
+    })
+    .finally (()=>{
+      renderLoading(false, buttonSaveAvatar);
+    })
+    .catch((err) => {
+      console.log(err); // выводим ошибку в консоль
+    })
+  });  
+  popup.listeners();
+  popup.openPopup();
 }); 
 
-
 addBtn.addEventListener('click', function () {
-  openPopup(popupAddCard);
+  const popup = new PopupWithForm('#popupAddCard', () => {
+    renderLoading(true, buttonSaveAddCard);
+    const imageLink = cardForm.link.value;
+    const imageName = cardForm.name.value;   
+    
+    api.postUserCard(imageName, imageLink)
+    .then((res)=>{
+      const newCard = new Card(res, '#cardTemplate');
+      const cardElement = newCard._generate();
+      const card = new Section({
+        data: res,
+      },
+      '.elements'
+      );
+      card.addItem(cardElement);
+      popup.closePopup();    
+      // popupSave.setAttribute('disabled', true);
+      // popupSave.classList.add('popup__save_inactive');
+      cardForm.name.value = '';
+      cardForm.link.value = '';
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally (()=>{
+      renderLoading(false, buttonSaveAddCard);
+    });
+  });
+  popup.listeners();
+  popup.openPopup();
 }); 
 
 editBtn.addEventListener('click', function () {
@@ -162,10 +174,3 @@ editBtn.addEventListener('click', function () {
 
 
 export let userId = '';
-
-
-
-
-
-
-
