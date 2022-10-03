@@ -98,13 +98,11 @@ const placePopup = new PopupWithForm('#popupAddCard', (inputList) => {
 
 const profilePopup = new PopupWithForm('#popupProfile', (inputList) => {
   renderLoading(true, buttonSaveProfile);
-  console.log('hello');
+  
   // отправляем данные серверу 
   api.uploadUserInfoInServer(inputList['0'], inputList['1'])
   .then((res) => {
-    profTitle.textContent = inputList[0];
-    profSubtitle.textContent = inputList[1]; 
-    console.log(res);
+  user.setUserInfo(res);
     profilePopup.closePopup();
   })
   .finally (()=>{
@@ -115,7 +113,7 @@ const profilePopup = new PopupWithForm('#popupProfile', (inputList) => {
   })
 });
 
-console.log(profilePopup._getInputValues());
+
 
 const cardList = new Section({
     renderer: (element) => {
@@ -129,7 +127,6 @@ Promise.all([api.getUserInfo(), api.getCardFromServer()])
 // тут деструктурируете ответ от сервера, чтобы было понятнее, что пришло
   .then(([userData, cards]) => {
     user.setUserInfo(userData)
-    console.log(userData)
     profAvatar.src = userData.avatar;
     userId = userData._id;
     cardList.renderItems(cards);
