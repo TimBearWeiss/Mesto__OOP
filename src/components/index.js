@@ -1,5 +1,5 @@
 import '../pages/index.css'; // добавьте импорт главного файла стилей 
-import '../components/api.js';
+import './Api.js';
 import {Section} from './Section.js'
 import {
   addBtn,
@@ -29,11 +29,12 @@ import {
 } from "./constants.js";
 //  Шесть карточек «из коробки»
 
-import {renderLoading} from './utils'
+import {renderLoading} from './utils.js'
 import {FormValidator} from './Validate.js'
 import {Card} from './Card.js'
-import {PopupWithForm, PopupWithImage} from './Popup.js' 
-import {Api} from './api.js'
+import {PopupWithForm} from './PopupWithForm.js' 
+import {PopupWithImage} from './PopupWithImage.js' 
+import {Api} from './Api.js'
 import {UserInfo} from './UserInfo.js'
 
 
@@ -168,8 +169,6 @@ editBtn.addEventListener('click', function () {
 
 const getFullSizeCard = (card) => {
   const popupImage = new PopupWithImage('.popup__image', card.link, card.name);
-  console.log(card.link);
-  console.log(card.name);
   popupImage.openPopup();
   popupImage.listeners();
 }
