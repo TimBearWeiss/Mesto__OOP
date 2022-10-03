@@ -49,7 +49,81 @@ const api = new Api({
     authorization: '4f0ff6e8-a2e0-495e-814d-038253b8623a',
     'Content-Type': 'application/json'
   }
-}); 
+});
+
+const avatarPopup = new PopupWithForm('#popupAvatar', (inputList) => {
+  renderLoading(true, buttonSaveAvatar);
+  
+  api.uploadAvatar(inputList['0'])
+  .then((res) => {
+    profAvatar.src = inputList['0'];
+    avatarPopup.closePopup();
+  })
+  .finally (()=>{
+    renderLoading(false, buttonSaveAvatar);
+  })
+  .catch((err) => {
+    console.log(err); // выводим ошибку в консоль
+  })
+});
+
+const createCards = (data) => {
+  const newCard = new Card(data, '#cardTemplate', getFullSizeCard, deleteCard, checkLikeOnCard);
+  const cardElement = newCard._generate();
+  return cardElement;
+}
+
+const placePopup = new PopupWithForm('#popupAddCard', (inputList) => {
+  renderLoading(true, buttonSaveAddCard);
+  // const imageLink = cardForm.link.value;
+  // const imageName = cardForm.name.value; 
+  const imageName = inputList['0']; 
+  const imageLink = inputList['1']; 
+
+  
+  api.postUserCard(imageName, imageLink)
+  .then((res)=>{
+    cardList.addItem(createCards(res));
+    placePopup.closePopup();
+    cardForm.name.value = '';
+    cardForm.link.value = '';
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally (()=>{
+    renderLoading(false, buttonSaveAddCard);
+  });
+});
+
+const profilePopup = new PopupWithForm('#popupProfile', (inputList) => {
+  renderLoading(true, buttonSaveProfile);
+  console.log('hello');
+  // отправляем данные серверу 
+  api.uploadUserInfoInServer(inputList['0'], inputList['1'])
+  .then((res) => {
+    profTitle.textContent = inputList[0];
+    profSubtitle.textContent = inputList[1]; 
+    console.log(res);
+    profilePopup.closePopup();
+  })
+  .finally (()=>{
+    renderLoading(false, buttonSaveProfile);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+});
+
+console.log(profilePopup._getInputValues());
+
+const cardList = new Section({
+    renderer: (element) => {
+      cardContainer.append(createCards(element));
+    }
+  },
+  '.elements'
+  );
 
 Promise.all([api.getUserInfo(), api.getCardFromServer()])
 // тут деструктурируете ответ от сервера, чтобы было понятнее, что пришло
@@ -58,113 +132,37 @@ Promise.all([api.getUserInfo(), api.getCardFromServer()])
     console.log(userData)
     profAvatar.src = userData.avatar;
     userId = userData._id;
-
-      const cardList = new Section({
-        data: cards,
-        renderer: (element) => {
-          const newCard = new Card(element, '#cardTemplate', getFullSizeCard, deleteCard, checkLikeOnCard);
-          const cardElement = newCard._generate();
-          cardContainer.append(cardElement);
-        }
-      },
-      '.elements'
-      );
-      cardList.renderItems(cards, userData);
+    cardList.renderItems(cards);
   })
       .catch(err => {
       console.log(err);
   });
 
 editAvatar.addEventListener('click', function () {
-  const popup = new PopupWithForm('#popupAvatar', () => {
-    renderLoading(true, buttonSaveAvatar);
-  
-    api.uploadAvatar(avatarInput.value)
-    .then((res) => {
-      profAvatar.src = avatarInput.value;
-      popup.closePopup();
-    })
-    .finally (()=>{
-      renderLoading(false, buttonSaveAvatar);
-    })
-    .catch((err) => {
-      console.log(err); // выводим ошибку в консоль
-    })
-  });
   const currentForm = document.querySelector('#popupAvatar');
   const validator = new FormValidator(data, currentForm);
   validator.enableValidation();  
-  popup.listeners();
-  popup.openPopup();
+  avatarPopup.listeners();
+  avatarPopup.openPopup();
 }); 
 
 addBtn.addEventListener('click', function () {
-  const popup = new PopupWithForm('#popupAddCard', () => {
-    renderLoading(true, buttonSaveAddCard);
-    const imageLink = cardForm.link.value;
-    const imageName = cardForm.name.value;   
-    
-    api.postUserCard(imageName, imageLink)
-    .then((res)=>{
-      const newCard = new Card(res, '#cardTemplate', getFullSizeCard, deleteCard, checkLikeOnCard);
-      const cardElement = newCard._generate();
-      const card = new Section({
-        data: res,
-      },
-      '.elements'
-      );
-      card.addItem(cardElement);
-      popup.closePopup();    
-      // popupSave.setAttribute('disabled', true);
-      // popupSave.classList.add('popup__save_inactive');
-      cardForm.name.value = '';
-      cardForm.link.value = '';
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-    .finally (()=>{
-      renderLoading(false, buttonSaveAddCard);
-    });
-  });
   const currentForm = document.querySelector('#popupAddCard');
   const validator = new FormValidator(data, currentForm);
   validator.enableValidation(); 
-  popup.listeners();
-  popup.openPopup();
+  placePopup.listeners();
+  placePopup.openPopup();
 }); 
 
-
-
-
 editBtn.addEventListener('click', function () {
-  const popup = new PopupWithForm('#popupProfile', () => {
-    renderLoading(true, buttonSaveProfile);
-    console.log('hello');
-    // отправляем данные серверу 
-    api.uploadUserInfoInServer(nameInput.value, jobInput.value)
-    .then((res) => {
-      profTitle.textContent = nameInput.value;
-      profSubtitle.textContent = jobInput.value; 
-      console.log(res);
-      popup.closePopup();
-    })
-    .finally (()=>{
-      renderLoading(false, buttonSaveProfile);
-    })
-    .catch((err) => {
-      console.log(err);
-    })
-  });
-
   const currentForm = document.querySelector('#popupProfile');
   const validator = new FormValidator(data, currentForm);
   validator.enableValidation(); 
 
   formProfileEdit.firstname.value = profileName.textContent;
   formProfileEdit.profession.value = profileProf.textContent;
-  popup.listeners();
-  popup.openPopup();
+  profilePopup.listeners();
+  profilePopup.openPopup();
 }); 
 
 const getFullSizeCard = (card) => {
@@ -173,12 +171,12 @@ const getFullSizeCard = (card) => {
   popupImage.listeners();
 }
 
-const checkLikeOnCard = (boolean, cardData, likeInput) => {
+const checkLikeOnCard = (boolean, cardData, input) => {
   if (boolean) {
     api.addLike(cardData._id)
     .then((res) => {
-      likeInput.textContent = res.likes.length;
       console.log(res);
+      input.textContent = res.likes.length;
     })
     .catch((err) => {
       console.log(err);
@@ -186,8 +184,8 @@ const checkLikeOnCard = (boolean, cardData, likeInput) => {
   } else {
     api.deleteLike(cardData._id)
     .then((res) => {
-      likeInput.textContent = res.likes.length;
       console.log(res);
+      input.textContent = res.likes.length;
     })
     .catch((err) => {
       console.log(err);

@@ -1,10 +1,10 @@
 export class Section {
   constructor({ data, renderer }, selector) {
-      this._initialArray = data;
-      this._renderer = renderer; // renderer — это функция
+    this._initialArray = data;
+    this._renderer = renderer; // renderer — это функция
         
-      this._container = document.querySelector(selector);
-    }
+    this._container = document.querySelector(selector);
+  }
   
   _clear () {
     this._container.innerHTML = '';
@@ -14,10 +14,10 @@ export class Section {
     this._container.prepend(element);
   }
   
-  renderItems (items, payload) {
+  renderItems (data) {
     this._clear()
-    items.forEach(item => {
-      this._renderer(item, payload)
+    data.forEach(item => {
+      this._renderer(item)
     })
   }
 }

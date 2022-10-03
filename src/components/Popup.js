@@ -5,10 +5,8 @@ export class Popup {
 
 
   openPopup() {
-    this.popup.classList.add('popup_opened');
-    document.addEventListener('keydown', (evt) => {
-      this._closePopupEsc(evt);
-    });
+    this.popup.classList.add('popup_opened');    
+    document.addEventListener('keydown', this._closePopupEsc.bind(this));
   }
        
   closePopup() {
