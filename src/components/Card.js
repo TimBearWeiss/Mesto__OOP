@@ -1,26 +1,52 @@
 import {userId} from './index.js'
 
 export class Card {
-  constructor(cardData, selector, getFull, deleteCard, checkLikeOnCard) {
+  constructor(cardData, selector, getFull, deleteCard, addLikeOnCard, removeLikeOnCard) {
     this._cardData = cardData;
     this.name = cardData.name;
     this.link = cardData.link;
     this.likes = cardData.likes;
     this.id = cardData.owner._id;
-    this.cardId = cardData.cardId;
+    this.cardId = cardData._id;
     this.selector = selector;
     this.getFull = getFull;
     this._deleteCard = deleteCard;
-    this._checkLikeOnCard = checkLikeOnCard;
+    this._addLikeOnCard = addLikeOnCard;
+    this._removeLikeOnCard = removeLikeOnCard;
+    // this._checkLikeOnCard = checkLikeOnCard;
+  }
+
+  getId() {
+    return this.cardId;
+  }
+
+  addLike(data) {
+    this._likeElement.classList.add("element__like_position_activ");
+    this._likeNumber.textContent = data.likes.length;
+  }
+
+  removeLike(data) {
+    this._likeElement.classList.remove("element__like_position_activ");
+    this._likeNumber.textContent = data.likes.length;
   }
 
   _setEventListeners() {  
     this._element.querySelector('.elements__like').addEventListener("click", (evt) => {
-      evt.target.classList.toggle("element__like_position_activ");
-      if (evt.target.classList.contains('element__like_position_activ')) {        
-        this._checkLikeOnCard(true, this._cardData, this._likeNumber);
-      } else {        
-        this._checkLikeOnCard(false, this._cardData, this._likeNumber);
+      // evt.target.classList.toggle("element__like_position_activ");
+      if (evt.target.classList.contains('element__like_position_activ')) { 
+        this._removeLikeOnCard(this); 
+        // this._checkLikeOnCard(true, this._cardData, this._likeNumber);
+        // // this._removeLike();
+        // this._addLike();
+        // evt.target.classList.remove("element__like_position_activ");
+        // evt.target.classList.toggle("element__like_position_activ");
+      } else {   
+        this._addLikeOnCard(this);  
+        // this._checkLikeOnCard(false, this._cardData, this._likeNumber);
+        // this._addLike();
+        // this._removeLike();
+        // evt.target.classList.add("element__like_position_activ");
+        // evt.target.classList.toggle("element__like_position_activ");
       }
     });
 
