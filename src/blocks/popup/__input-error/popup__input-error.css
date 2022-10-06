@@ -6,9 +6,17 @@
   line-height: 15px;
 
   color: #ff0000;
-
+  height: 30px;
   max-width: 358px;
   margin-left: 36px;
   margin-right: 36px;
   visibility: hidden;
+}
+
+@media screen and (max-width: 767px) {
+  .popup__input-error {
+    font-weight: 400;
+    font-size: 10px;
+    line-height: 11px;
+  }
 }
