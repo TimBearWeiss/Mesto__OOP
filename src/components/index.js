@@ -54,10 +54,11 @@ const api = new Api({
 const avatarPopup = new PopupWithForm('#popupAvatar', (inputList) => {
   renderLoading(true, buttonSaveAvatar);
   
-  api.uploadAvatar(inputList['0'])
+  api.uploadAvatar(inputList.link)
   .then((res) => {
-    profAvatar.src = inputList['0'];
+    profAvatar.src = inputList.link;
     avatarPopup.closePopup();
+    console.log(res);
   })
   .finally (()=>{
     renderLoading(false, buttonSaveAvatar);
@@ -81,8 +82,8 @@ popupImage.listeners();
 
 const placePopup = new PopupWithForm('#popupAddCard', (inputList) => {
   renderLoading(true, buttonSaveAddCard);
-  const imageName = inputList['0']; 
-  const imageLink = inputList['1']; 
+  const imageName = inputList.name; 
+  const imageLink = inputList.link; 
   
   api.postUserCard(imageName, imageLink)
   .then((res)=>{
@@ -90,6 +91,7 @@ const placePopup = new PopupWithForm('#popupAddCard', (inputList) => {
     placePopup.closePopup();
     cardForm.name.value = '';
     cardForm.link.value = '';
+    console.log(res)
   })
   .catch((err) => {
     console.log(err);
@@ -106,10 +108,11 @@ const profilePopup = new PopupWithForm('#popupProfile', (inputList) => {
   renderLoading(true, buttonSaveProfile);
   
   // отправляем данные серверу 
-  api.uploadUserInfoInServer(inputList['0'], inputList['1'])
+  api.uploadUserInfoInServer(inputList.firstname, inputList.profession)
   .then((res) => {
-  user.setUserInfo(res);
+    user.setUserInfo(res);
     profilePopup.closePopup();
+    console.log(res);
   })
   .finally (()=>{
     renderLoading(false, buttonSaveProfile);
@@ -137,7 +140,6 @@ Promise.all([api.getUserInfo(), api.getCardFromServer()])
     profAvatar.src = userData.avatar;
     userId = userData._id;
     cardList.renderItems(cards);
-    console.log(cards);
   })
       .catch(err => {
       console.log(err);
@@ -145,17 +147,20 @@ Promise.all([api.getUserInfo(), api.getCardFromServer()])
 
 editAvatar.addEventListener('click', function () {
   avatarPopup.openPopup();
+  avatarValidator.makeInactiveButton();
 }); 
 
 addBtn.addEventListener('click', function () {
   placePopup.openPopup();
+  placeValidator.makeInactiveButton();
 }); 
 
 editBtn.addEventListener('click', function () {
   formProfileEdit.firstname.value = profileName.textContent;
   formProfileEdit.profession.value = profileProf.textContent;
   profilePopup.openPopup();
-}); 
+  profileValidator.makeInactiveButton();
+});
 
 const getFullSizeCard = (card) => {
   popupImage.openPopup(card.link, card.name);
@@ -184,9 +189,10 @@ function removeLikeOnCard (card){
 }
 
 const deleteCard = (cardElement) => {
-  api.deleteCardFromServer(cardElement._id)
+  api.deleteCardFromServer(cardElement.cardId)
   .then((res) => {
     console.log(res);
+    cardElement.removeCard();
   })
   .catch((err) => {
     console.log(err); 

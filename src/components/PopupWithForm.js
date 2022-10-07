@@ -10,9 +10,10 @@ export class PopupWithForm extends Popup {
       const inputList = this.popup.querySelectorAll('.popup__input');
       const obj = {};
 
-      for(let i = 0; i < inputList.length; i++) {
-        obj[i] = inputList[i].value;
-      }
+      inputList.forEach(input => obj[input.name] = input.value)
+      // for(let i = 0; i < inputList.length; i++) {
+      //   obj[i] = inputList[i].value;
+      // }
       return obj;
     }
   
