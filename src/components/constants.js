@@ -1,7 +1,21 @@
 export const addBtn = document.querySelector('.profile__add-button');
 export const editBtn = document.querySelector('.profile__edit-button');
 export const editAvatar = document.querySelector('.profile__avatar-button');
+export const likeInput = document.querySelector('.element__like-number');
 
+export const data = {
+    formSelector: '.popup__form',
+    inputSelector: '.popup__input',
+    submitButtonSelector: '.popup__save',
+    inactiveButtonClass: 'popup__save_inactive',
+    inputErrorClass: 'popup__input-redframe',
+    errorClass: 'popup__input-error_visible'
+}
+
+
+
+export const nameSelector = '.profile__name';
+export const professionSelector = '.profile__profession'
 
 
 
@@ -60,7 +74,6 @@ export const profAvatar = document.querySelector('.profile__avatar');
 
 export const cardContainer = document.querySelector('.elements');
 
-export const cardTemplate = document.querySelector('#cardTemplate').content;
 
 
 

@@ -1,19 +1,3 @@
-
-import {closePopupEsc} from './modal'
-
-function openPopup(popup) {
-    popup.classList.add('popup_opened');
-    document.addEventListener('keydown', closePopupEsc);
-    
-   };
-   
-   function closePopup(popup) {
-     popup.classList.remove('popup_opened');
-     document.removeEventListener('keydown', closePopupEsc);
-    
-   };
-
-
 function checkResponse(res) {
     if (res.ok) {
       return res.json();
@@ -32,7 +16,7 @@ function renderLoading(isLoading, submitButton) {
       };
 
 
-   export {openPopup, closePopup, checkResponse, renderLoading};
+   export {checkResponse, renderLoading};
 
 
 
