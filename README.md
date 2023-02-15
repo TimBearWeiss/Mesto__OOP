@@ -22,4 +22,7 @@
 закрытие попапа кликом на оверлей
 закрытие попапа нажатием на Esc
 
+
+для запуска проекта в консоле npm run dev
+
 ссылка: https://timbearweiss.github.io/mesto-project/
