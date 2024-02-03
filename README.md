@@ -26,5 +26,5 @@
 для запуска проекта в консоле npm run dev
 
 Развернутый проект:
-ссылка: https://timbearweiss.github.io/MestoPages/  (актуальный проект)
+ссылка: https://timbearweiss.github.io/MestoPages/  (актуальный проект)  
 промежуточный: https://timbearweiss.github.io/mesto-project/
